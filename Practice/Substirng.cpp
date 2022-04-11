@@ -1,26 +1,24 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
 
-void printSubstirngs( string s, string ans ){
+void substring( string s, string ans ){
 
-    if ( s == "" ){
+    if ( s.length() == 0 ){
 
         cout<<ans<<endl;
-        return;
+        return ;
 
     }
 
-    printSubstirngs(s.substr(1), ans);
-    printSubstirngs(s.substr(1), ans + s[0]);
-
+    substring(s.substr(1), ans);
+    substring(s.substr(1), ans + s[0]);
 
 }
 
 int main(){
 
-    printSubstirngs("ABC", "");
+    substring("ABC", "");
 
     return 0;
-
 }
