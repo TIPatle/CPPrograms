@@ -35,7 +35,17 @@ node* InsertInBinaryTree ( node* root , int data){
 
 }
 
-//int heightBinary
+int heightBinary( node* root ){
+
+    if ( root == NULL )
+        return 0;
+
+    int l = heightBinary(root->left);
+    int r = heightBinary(root->right);
+
+    return ( max(l, r) + 1 );
+
+}
 
 void inorder ( node* root ){
 
@@ -50,7 +60,21 @@ void inorder ( node* root ){
 
 int main(){
 
+    int n;
+    cin>>n;
 
+    int val;
+    node* root = NULL;
+    for ( int i = 0; i<n; i++){
+
+        cin>>val;
+        root = InsertInBinaryTree(root, val);
+
+    }
+
+    inorder(root);
+
+    cout<<"\n"<<heightBinary(root) - 1;
 
     return 0;
 
