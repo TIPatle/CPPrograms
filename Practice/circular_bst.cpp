@@ -37,12 +37,9 @@ bool iscircular( int i ){
                 v[it] = 1;
                 parent[it] = node;
 
-
             }
 
-            else if ( parent[it] != parent[node] )
-                return true; 
-
+            
         }
 
     }

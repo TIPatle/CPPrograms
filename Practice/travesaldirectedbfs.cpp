@@ -16,28 +16,37 @@ using namespace std;
 vii adj(M);
 vi vis(M, 0);
 
-bool iscircular( int i, int parent){
+void bfs( int i ){
 
-    vis[i] = 1;
+    if ( !vis[i] ){
 
-    for ( auto it : adj[i] ){
+        queue <int> q;
+        q.push(i);
+        vis[i] = 1;
 
-        if ( vis[it] && it != parent && parent != -1 )
-            return true;
+        cout<<i<<" ";
 
-        else {
+        while (q.empty()){
 
-            vis[it] = 1;
+            int node = q.front();
+            q.pop();
 
-            if (iscircular(it, i))
-                return true;
+            for ( auto it : adj[node] ){
+
+                if ( !vis[it] ){
+                    
+                    cout<<it<<" ";
+                    q.push(i);
+                    vis[it] = 1;
+
+                }
+
+            }
 
         }
 
     }
 
-    return false;
-    
 
 }
 
@@ -46,34 +55,25 @@ int main(){
     int n, m;
     cin>>n>>m;
 
-    rep(i, 1, m+1 ){
+    rep(i, 1, m+1){
 
         int x, y;
         cin>>x>>y;
 
         adj[x].push_back(y);
-        adj[y].push_back(x);
 
     }
 
-    bool circular = 0;
-    rep(i, 1, n+1){
+    rep( i, 1, n+1 ){
 
         if ( !vis[i] ){
-    
-            if(iscircular(i, -1)){ 
 
-                circular = 1;
-
-            }
+            bfs(i); 
+            cout<<endl;
 
         }
 
-        cout<<"o "<<endl;
-
     }
-
-    cout<<circular<<endl;
 
 
     return 0;

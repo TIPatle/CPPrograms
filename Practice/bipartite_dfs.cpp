@@ -14,38 +14,53 @@
 using namespace std;
 
 vii adj(M);
-vi vis(M, 0);
 vi color(M, -1);
 
-bool isbipartite( int i ){  //o( n + e)  space ---> O(n+e) + O(n) + O(n)
- 
-    queue <int> q;
-    q.push(i);
-    vis[i] = 1;  //There is no need for visited array we can make use of color vector and check if it's -1 for unvisited
-    color[i] = 1;
+bool isbipart( int i ){
 
-    int ans = 1;
+    if ( color[i] == -1 )
+        color[i] = -1;
 
-    while (!q.empty()){
+    for ( auto it : adj[i] ){
 
-        int node = q.front();
-        q.pop();
+        if ( color[it] == -1 ){
 
-        for ( auto it : adj[node] ){
+            color[it] = !color[i];
+            isbipart(it);
 
-            if ( !vis[it] ){
+        }
 
-                q.push(it);
-                vis[it] = 1;
-                color[it] = !color[node];
+        else if ( color[it] == color[i] )
+            return false;
 
-            }
+    }
 
-            else if ( color[it] == color[node] )
-                ans = false;
+    return true;
+
+}
+
+bool isbipartite(int i, int col ){
+
+    bool ans = true;
+
+    if ( color[i] == -1 ){
+    
+        color[i] = col;
+
+        for ( auto it : adj[i] ){
+
+            if (isbipartite(it, !col))
+                ans = ans & true;
+
+            else 
+                ans = ans & false;
+
         }
 
     }
+
+    else if ( color[i] != col )
+        ans = ans & false;
 
     return ans;
 
@@ -68,13 +83,15 @@ int main(){
 
     rep(i, 1, n+1){
 
-        if (!vis[i])
-            if (isbipartite(i))
+        if ( color[i] == -1 ){
+
+            if(isbipartite(i, 0))
                 cout<<"Graph with starting with node "<<i<<" is Bipartite.."<<endl;
 
             else 
                 cout<<"Graph with starting with node "<<i<<" is not Bipartite.."<<endl;
-                
+
+        }
 
     }
 
