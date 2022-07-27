@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-
+                        // ------ Coded By Tushar Patle
 using namespace std;
 
 vector <vector<pair<long long int, string >> > hash_table(10);
@@ -44,12 +44,14 @@ int main(){
         cout<<"Enter Phone number :- ";
         cin>>phoneno;
 
-        if(int(phoneno/1e10) && phoneno > 0 ){
+        if( phoneno > 1e10 || phoneno <= 1e9  ){
 
             cout<<"Invalid Phone Please enter the data again..."<<endl;
             goto prev;
 
         }
+
+
 
         p.first = phoneno;
         p.second = name;
